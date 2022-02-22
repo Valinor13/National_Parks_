@@ -90,4 +90,4 @@ function checkNotAuthenticated(req, res, next) {
   return next();
 }
 
-app.listen(3000);
+app.listen(3000, () => console.log('connected on port 3000'));
