@@ -1,3 +1,4 @@
 node_modules
-raw
+raw_scripts
+views/images
 .env

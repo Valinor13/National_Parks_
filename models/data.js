@@ -6,6 +6,9 @@ const DataScheme  = new mongoose.Schema({
     title: {
         type: String
     },
+    index: {
+        type: Number
+    },
     data: {
         type: String
     }
