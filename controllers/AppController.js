@@ -11,9 +11,11 @@ class AppController {
     (async () => {
       const index = Math.floor(Math.random() * 61) + 1;
       const result = await Data.findOne({ index });
+      const file = Math.floor(Math.random() * 4) + 1;
+      const image = `<img src="images/${result.title}/${file}.jpg" width="100%">`;
       const tSplit = result.title.split('_');
       const title = tSplit.join(' ');
-      res.render('index.ejs', { data: result.data, title });
+      res.render('index.ejs', { data: result.data, title, image });
     })();
   }
 }
