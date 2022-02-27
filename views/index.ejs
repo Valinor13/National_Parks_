@@ -9,7 +9,15 @@
 
 <body class="gradient-custom row">
   <div class="col-xl-6 my-5 mx-3">
-    <%-image%>
+    <img id="img-stream" src="" width="100%"/>
+    <div class="d-flex justify-content-center pt-3">
+      <button><</button>
+      <button type="submit">1</button>
+      <button type="submit">2</button>
+      <button type="submit">3</button>
+      <button type="submit">4</button>
+      <button>></button>
+    </div>
   </div>
   <div class="col-xl-5 bg-ugly mx-3">
     <h1>
@@ -22,4 +30,20 @@
       <%-data%>
     </div>
   </div>
+  <script src="../socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on('connect', () => {
+      const imgDir = `<%-JSON.stringify(dir)%>`;
+      socket.emit('receive-dir', imgDir);
+    })
+
+    const imgChunks = [];
+
+    socket.on('img-chunk', (chunk) => {
+      const img = document.getElementById('img-stream');
+      imgChunks.push(chunk);
+      img.setAttribute('src', `data:image/jpeg;base64,${window.btoa(imgChunks)}`);
+    });
+  </script>
 </body>
