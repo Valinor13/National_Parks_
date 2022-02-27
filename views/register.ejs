@@ -23,8 +23,8 @@
                 <p class="mb-5">Please enter your username, email, and password.</p>
 
                 <div class="text-danger pt-0 mt-0 pb-4">
-                  <% if (messages.error) { %>
-                    <%= messages.error %>
+                  <% if (msg) { %>
+                    <%-msg%>
                       <% } %>
                 </div>
 

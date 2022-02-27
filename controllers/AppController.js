@@ -9,8 +9,7 @@ db.on('open', () => console.log('connect to db'));
 class AppController {
   static getIndex(req, res) {
     (async () => {
-      // const index = Math.floor(Math.random() * 61) + 1;
-      const index = 22;
+      const index = Math.floor(Math.random() * 61) + 1;
       const result = await Data.findOne({ index });
       const data = result.data;
       const dir = `images/${result.title}`;

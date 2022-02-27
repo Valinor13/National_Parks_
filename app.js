@@ -44,11 +44,12 @@ initializePassport(
 
 io.on('connection', (socket) => {
   socket.on('receive-dir', (dir) => {
-    const fileno = Math.floor(Math.random() * 4) + 1;
-    const imgStream = fs.createReadStream(`./views/${dir.replaceAll('"', '')}/${fileno}.jpg`, { encoding: 'binary' }), chunks = [];
-    imgStream.on('data', (chunk) => {
-      chunks.push(chunk);
-      socket.emit('img-chunk', chunk);
+    const fileno = 1;
+    const imgDir = `${dir.replaceAll('"', '')}/${fileno}.jpg`;
+    socket.emit('image-loader', imgDir);
+    socket.on('send-fileno', (fileno) => {
+      const imgDir = `${dir.replaceAll('"', '')}/${fileno}.jpg`;
+      socket.emit('image-loader', imgDir);
     })
   })
 })

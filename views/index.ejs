@@ -11,12 +11,12 @@
   <div class="col-xl-6 my-5 mx-3">
     <img id="img-stream" src="" width="100%"/>
     <div class="d-flex justify-content-center pt-3">
-      <button><</button>
-      <button type="submit">1</button>
-      <button type="submit">2</button>
-      <button type="submit">3</button>
-      <button type="submit">4</button>
-      <button>></button>
+      <h1 class="text-warning"><</h1>
+      <h1 id="1" class="px-1" style="cursor: pointer; color: red" onclick="loadImage(this, '1')">1</h1>
+      <h1 id="2" class="px-1" style="cursor: pointer; color: blue" onclick="loadImage(this, '2')">2</h1>
+      <h1 id="3" class="px-1" style="cursor: pointer; color: blue" onclick="loadImage(this, '3')">3</h1>
+      <h1 id="4" class="px-1" style="cursor: pointer; color: blue" onclick="loadImage(this, '4')">4</h1>
+      <h1 class="text-warning">></h1>
     </div>
   </div>
   <div class="col-xl-5 bg-ugly mx-3">
@@ -39,11 +39,17 @@
     })
 
     const imgChunks = [];
-
-    socket.on('img-chunk', (chunk) => {
+    socket.on('image-loader', (dir) => {
       const img = document.getElementById('img-stream');
-      imgChunks.push(chunk);
-      img.setAttribute('src', `data:image/jpeg;base64,${window.btoa(imgChunks)}`);
+      img.setAttribute('src', dir);
     });
+
+    function loadImage(element, fileno) {
+      for (let i = 1; i < 5; i++) {
+        document.getElementById(i).style.color = "blue";
+      }
+      element.style.color = 'red';
+      socket.emit('send-fileno', fileno);
+    }
   </script>
 </body>

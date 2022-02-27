@@ -10,13 +10,18 @@ db.once('open', () => console.log("Connected to DB"))
 
 class UserController {
   static getRegister(req, res) {
-    return res.render('register.ejs');
+    const msg = '';
+    return res.render('register.ejs', { msg });
   }
 
   static createUser(req, res) {
     (async () => {
       try {
         const hashPw = await bcrypt.hash(req.body.password, 10);
+        if (await User.findOne({ username: req.body.username })) {
+          const msg = 'User already exists';
+          return res.render('register.ejs', { msg });
+        }
         const user = new User({
           username: req.body.username,
           email: req.body.email,
